@@ -51,3 +51,13 @@
     }
   })
 })()
+function sortArray(sortType, sortOrder) {
+  $.ajax({
+    type: "POST",
+    url: "dashboard.php",
+    data: { sort_type: sortType, sort_order: sortOrder },
+    success: function(data) {
+      $("#myTable").html(data);
+    }
+  });
+}
