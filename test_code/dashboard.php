@@ -1,4 +1,5 @@
 <!-- This is a comment-->
+<!--Tasks: align search bar + table, move table lower, order rows by date, add search feature-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,14 +25,57 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
-    </style>
+      table.table-bordered{
+        vertical-align: middle;
+        padding-left: 15px;
+        height: 60px;
+      }
+      table.table-bordered > thead > tr > th{
+        vertical-align: middle;
+        padding-left: 15px;
+        height: 60px;
+      }
+      table.table-bordered > tbody > tr > td{
+        vertical-align: middle;
+        padding-left: 15px;
+        height: 60px;
+      }
+      td:last-child {
+        text-align: center;
+      }
+      .gfg {
+        border-collapse:separate;
+        border-spacing:0 7px;
+      }
+      .SearchBar {
+        height: 40px;
+        width: 600px;        
+        padding-left: 15px;
+      }
+      .btn-size{
+        width: 42px;
+        height: 42px;
+      }
+      .container {
+			  position: relative;
+			  padding: 15px;
+		  }
+      .btnDesign {
+        background-color: white;
+        color: grey;
+        border: 1px solid grey;
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+      
 
+    </style>
+    <!-- edit above later does this go in this file or the css file... olivia-->
     
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
@@ -40,10 +84,6 @@
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Socle PO Process Dashboard</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" href="#">Sign out</a>
@@ -143,22 +183,21 @@
           </button>
         </div>
       </div>
-		
-		<?php		
-			//CSV parsing-1
-			//////////////////////////////////
-			//$file = fopen("data_formate.csv","r");
-			//while(! feof($file))
-			//{
-			//	print_r(fgetcsv($file));
-			//}
-			//fclose($file);
-			////echo $file->array(16);
-			//////////////////////////////////
-		
-			//CSV parsing-2
-			//////////////////////////////////
-			echo "<h5>- CSV RAW data -</h5>";
+
+      <!--search bar for database table-->
+      <!--should the search be fixed and scrollable-->
+      
+
+      <div class="SearchBar input-group col-md-4">
+      <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input">
+      <span class="input-group-append">
+        <button class="btn btn-outline-secondary btn-size" type="button">
+            <i data-feather="search"></i>
+        </button>
+      </span>
+      </div>
+
+		  <?php		
 			function csvToArray($csvFile){
 				$file_to_read = fopen($csvFile, 'r');
 				while (!feof($file_to_read) ) {
@@ -170,217 +209,89 @@
 			//read the csv file into an array
 			$csvFile = 'data_formate.csv';
 			$csv = csvToArray($csvFile);
+      
+		  ?>
+		  <!--need to order by name when date is the same-->
+      <!--design is kind bad but change later-->
+      <div class="container">
+        <button class = "btnDesign" onclick="sortArray('name', 'ascend')">Sort by Name (A-Z)</button>
+	      <button class = "btnDesign" onclick="sortArray('name', 'descend')">Sort by Name (Z-A)</button>
+	      <button class = "btnDesign" onclick="sortArray('date', 'ascend')">Sort Oldest to Newest</button>
+	      <button class = "btnDesign" onclick="sortArray('date', 'descend')">Sort by Newest to Oldest</button>
+	    </div>
+      
+      <table id="myTable" class="table table-dark table-hover table-fixed table-bordered gfg">
+        <tbody>	
+			  <?php		           
+           if (isset($_POST['sort_type']) && isset($_POST['sort_order'])) {
+            $sortType = $_POST['sort_type'];
+            $sortOrder = $_POST['sort_order'];
+            //remove header to sort the remaining table
+            $header = array_shift($csv); 
+            
+            usort($csv, function($a, $b) use ($sortType, $sortOrder) {
+              if ($sortType == 'name') {
+                $result = strcmp($a[1], $b[1]);
+              } else {
+                $dateA = strtotime($a[2]);
+                $dateB = strtotime($b[2]);
+                $result = ($dateA < $dateB) ? -1 : 1;
+              }
+              return ($sortOrder == 'descend') ? -$result : $result;
+            });
+            //append header back 
+            array_unshift($csv, $header);
+          }
 
-			//render the array with print_r
-			echo '<pre>';
-			print_r($csv);
-			echo '</pre>';
-		
-		
-			echo "<h5>- CSV output data - </h5>";		
-			echo "\$csv[0][0] : ";
-			echo $csv[0][0];
-			echo "<br>";		
-			echo "\$csv[0][1] : ";
-			echo $csv[0][1];
-			echo "<br><br><br>";
-		
-		
-		
-			echo "<h5>- CSV Array count - </h5>";
-			echo "count \$csv[0] :";
-			echo count($csv[0]);
-			echo "<br><br><br>";
-		
-			//////////////////////////////////
-		
-			//CSV parsing-3
-			//$file_to_read = fopen('data_formate.csv', 'r');
-			//if($file_to_read !== FALSE){
-			//	echo "<table>\n";
-			//	while(($data = fgetcsv($file_to_read)) !== FALSE){
-			//		echo "<tr>";
-			//		for($i = 0; $i < count($data); $i++) {
-			//			echo "<td>".$data[$i]."</td>";
-			//		}
-			//		echo "</tr>\n";
-			//	}
-			//	echo "</table>\n";
-			//	fclose($file_to_read);
-			//}
-		?>
-		
-		<h5>- CSV Table - </h5>
-		<div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-				<?php
-				
-					for ( $i=0 ; $i<count($csv[0]) ; $i++ ) {
-						echo "<th>";
-						echo $csv[0][$i] ;
-						echo "</th>";
-					}
-				?>      
-            </tr>
-          </thead>
-          <tbody>	
-			  <?php		
-				  for ( $i=0 ; $i<count($csv) ; $i++ ) {
+
+				  for ( $i=0 ; $i<count($csv)-1 ; $i++ ) {
 					  echo "<tr>";
-					  for ( $j=0 ; $j<count($csv[$i]) ; $j++ ) {
 						  echo "<td>";
-						  echo $csv[$i+1][$j] ;
+                if(isset($csv[$i+1][2])) {
+                  echo $csv[$i+1][2] ;
+                }
 						  echo "</td>";
-					  }					  
-					  echo "</tr>";
+						  echo "<td>";
+                if(isset($csv[$i+1][1])) {
+                  echo "客戶: ";
+                  echo $csv[$i+1][1] ;
+                }
+						  echo "</td>";
+						  echo "<td>";
+                if(isset($csv[$i+1][3])) {
+                  echo "訂單: ";
+                  echo $csv[$i+1][3] ;
+                }
+						  echo "</td>";
+              echo "<td>";            
+                echo "PN: ";                
+						  echo "</td>";
+              echo '<td><button type="button" class="btn btn-sm btn-outline-secondary">| 詳細 |</button></td>'; 
+              
+            echo "</tr>";
 				  }
 			  ?>      
-          </tbody>
-        </table>
-      </div>
-
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-		
-	<div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-		
-		
-		
-		
+        </tbody>
+      </table>
     </main>
   </div>
-</div>
+</div>   
 
-
+<script>
+	function sortArray(sortType, sortOrder) {
+  $.ajax({
+    type: "POST",
+    url: "dashboard.php",
+    data: { sort_type: sortType, sort_order: sortOrder },
+    success: function(data) {
+      var $tableData = $(data);
+      $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
+    }
+  });
+}
+</script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
 </html>
