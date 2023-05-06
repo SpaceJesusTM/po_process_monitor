@@ -12,8 +12,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
-    
-
     <!-- Bootstrap core CSS -->
 <link href="bootstrap.min.css" rel="stylesheet">
 
@@ -187,14 +185,13 @@
       <!--search bar for database table-->
       <!--should the search be fixed and scrollable-->
       
-
       <div class="SearchBar input-group col-md-4">
-      <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input">
-      <span class="input-group-append">
-        <button class="btn btn-outline-secondary btn-size" type="button">
+        <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input">
+          <span class="input-group-append">
+          <button class="btn btn-outline-secondary btn-size" type="button">
             <i data-feather="search"></i>
-        </button>
-      </span>
+          </button>
+        </span>
       </div>
 
 		  <?php		
@@ -243,7 +240,6 @@
             array_unshift($csv, $header);
           }
 
-
 				  for ( $i=0 ; $i<count($csv)-1 ; $i++ ) {
 					  echo "<tr>";
 						  echo "<td>";
@@ -267,7 +263,6 @@
                 echo "PN: ";                
 						  echo "</td>";
               echo '<td><button type="button" class="btn btn-sm btn-outline-secondary">| 詳細 |</button></td>'; 
-              
             echo "</tr>";
 				  }
 			  ?>      
@@ -277,21 +272,21 @@
   </div>
 </div>   
 
-<script>
-	function sortArray(sortType, sortOrder) {
-  $.ajax({
-    type: "POST",
-    url: "dashboard.php",
-    data: { sort_type: sortType, sort_order: sortOrder },
-    success: function(data) {
-      var $tableData = $(data);
-      $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
-    }
-  });
-}
-</script> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+  <script>
+	  function sortArray(sortType, sortOrder) {
+    $.ajax({
+      type: "POST",
+      url: "dashboard.php",
+      data: { sort_type: sortType, sort_order: sortOrder },
+      success: function(data) {
+        var $tableData = $(data);
+        $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
+      }
+    });
+  }
+  </script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
 </html>
