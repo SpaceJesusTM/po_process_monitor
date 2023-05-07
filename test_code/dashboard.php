@@ -183,16 +183,17 @@
       </div>
 
       <!--search bar for database table-->
-      <!--should the search be fixed and scrollable-->
-      
+      <!-- Can remove the button, or remove onekeyup="tableSearch()" depending on wanted usage -->
+      <form onsubmit="tableSearch(); return false;">
       <div class="SearchBar input-group col-md-4">
-        <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input">
+        <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input"/>
           <span class="input-group-append">
-          <button class="btn btn-outline-secondary btn-size" type="button">
+          <button class="btn btn-outline-secondary btn-size" type="submit">
             <i data-feather="search"></i>
           </button>
         </span>
       </div>
+    </form>
 
 		  <?php		
 			function csvToArray($csvFile){
@@ -283,8 +284,52 @@
         $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
       }
     });
+    // To check button response
+    // console.log(sortType, sortOrder);
   }
   </script> 
+  <!-- Script to search table, for now make it print to console to check funtioanilty -->
+  <script>
+    function tableSearch() {
+      let input, filter, found, table, tr, td, i, j;
+
+      // Initialize variables
+      input = document.getElementById("example-search-input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for(i = 0; i < tr.length; i++) {
+        // Searching all columns
+        td = tr[i].getElementsByTagName("td");
+        for(j = 0; j < td.length; j++) {
+          if(td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            found = true;
+          }
+        }
+        if(found) {
+          tr[i].style.display = "";
+          found = false;
+        } else {
+          tr[i].style.display = "none";
+        }
+
+        // Search by name, which is the second column
+        // td = tr[i].getElementsByTagName("td")[1];
+        // if(td) {
+        //   txtValue = td.textContent || td.innerText;
+        //   if(txtValue.toUpperCase().indexOf(filter) > -1) {
+        //     tr[i].style.display = "";
+        //   } else {
+        //     tr[i].style.display = "none";
+        //   }
+        // }
+      }
+
+      // To check button/textbox response
+      // console.log("searching");
+    }
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
