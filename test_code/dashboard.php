@@ -183,12 +183,22 @@
       </div>
 
       <!--search bar for database table-->
+<<<<<<< HEAD
       <!-- Can remove the button, or remove onekeyup="tableSearch()" depending on wanted usage -->
       <form onsubmit="tableSearch(); return false;">
       <div class="SearchBar input-group col-md-4">
         <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input"/>
           <span class="input-group-append">
           <button class="btn btn-outline-secondary btn-size" type="submit">
+=======
+      <!--should the search be fixed and scrollable-->
+      
+      <!-- Can remove the button, or remove onekeyup="tableSearch()" depending on wanted usage -->
+      <div class="SearchBar input-group col-md-4">
+        <input class="form-control py-2" type="search" placeholder="Search" id="example-search-input" onkeyup="tableSearch()"/>
+          <span class="input-group-append">
+          <button class="btn btn-outline-secondary btn-size" type="button" onclick="tableSearch()">
+>>>>>>> 78448a5ebe8a8116149c68757d30c35f8edd5cf5
             <i data-feather="search"></i>
           </button>
         </span>
