@@ -148,6 +148,7 @@
         </div>
       </div>
     </main>
+
     <!-- Button to return back to Dashboard page -->
     <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <a href="../dashboard.php" class="btn btn-back">Back to Dashboard</a>
@@ -160,6 +161,188 @@
         border-radius: 5px;
         padding: 5px 10px;
       }
+    </style>
+
+    <!-- Timeline Template, Need to make it responsive and based on csv data -->
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="timeline">
+        <div class="outer">
+          <div class="card">
+            <div class="info">
+              <h3 class="title complete">CUST</h3>
+              <p>YYYY/MM/DD</p>
+              <p>客戶: RK<br>訂單: RKE/OE/008</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title complete">CSR</h3>
+              <p>YYYY/MM/DD</p>
+              <p>內部訂單: 229-111030001<br>請購: 313-111060017</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title ipr">PR</h3>
+              <p>YYYY/MM/DD</p>
+              <p>採購: 331-111060011</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">CSR</h3>
+              <p>*TT (NET 30)</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">CUST</h3>
+              <p>需與財務確認到帳訊息</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">LOGISTIC/CSR</h3>
+              <p>YYYY/MM/DD</p>
+              <p>進貨驗收</p>
+              <p>(採購單號)<br>331-111060011 : 349-111060007<br>331-111060012 : 349-111070009<br>331-111060013 : 349-111070009</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">PR</h3>
+              <p>YYYY/MM/DD</p>
+              <p>內部請款付款予供應商</p>
+              <p>(採購單號)<br>331-111060011 : 710-111060027<br>331-111060012  : 710-111070043<br>331-111060013 : 710-111070043</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">LOGISTIC/CSR</h3>
+              <p>YYYY/MM/DD</p>
+              <p>出貨 (*Invoice)</p>
+              <p>(內部訂單單號)<br>229-111030001 : 239-111060030<br>229-111030001  : 239-111070025<br>229-111030001 : 239-111070025</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="info">
+              <h3 class="title">CUST</h3>
+              <p>匯款請與財務確認</p>
+              <p>(內部訂單單號)   (應該是看發票號碼)<br>I2022061301<br>I2022062002<br>I2022071401</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHP implementation of above template, IPR, currently does not work and commneted out.  -->
+    <!-- <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="timeline">
+        <div class="outer">
+          <?php
+            $row = 1;
+            if (($handle = fopen("data_formate.csv", "r")) !== FALSE) {
+              while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $num = count($data);
+                $row++;
+                for ($c=0; $c < $num; $c++) {
+                  if ($data[$c] == $client && $data[$c+1] == $order) {
+                    echo "<div class='card'>";
+                    echo "<div class='info'>";
+                    echo "<h3 class='title complete'>" . $data[$c+2] . "</h3>";
+                    echo "<p>" . $data[$c+3] . "</p>";
+                    echo "<p>" . $data[$c+4] . "</p>";
+                    echo "</div>";
+                    echo "</div>";
+                  }
+                }
+              }
+              fclose($handle);
+            }
+          ?>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Timeline Styles -->
+    <style>    
+    /* Timeline Container */
+    .timeline {
+      background: var(--primary-color);
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    /* Outer Layer with the timeline border */
+    .outer {
+      border-left: 2px solid #333;
+    }
+
+    /* Card container */
+    .card {
+      position: relative;
+      margin: 0 0 20px 20px;
+      padding: 10px;
+      background: #333;
+      color: white;
+      border-radius: 8px;
+      max-width: 400px;
+    }
+
+    /* Information about the timeline */
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Title of the card */
+    .title {
+      color: orange;
+      position: relative;
+    }
+
+    /* Make title complete green */
+    .title.complete {
+      color: lightgreen;
+    }
+
+    /* Make title ipr green */
+    .title.ipr {
+      color: lightblue;
+    }
+
+    /* Timeline dot  */
+    .title::before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: orange;
+      border-radius: 999px;
+      left: -39px;
+      border: 3px solid grey;
+    }
+    .title.complete::before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: lightgreen;
+      border-radius: 999px;
+      left: -39px;
+      border: 3px solid grey;
+    }
+    .title.ipr::before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: lightblue;
+      border-radius: 999px;
+      left: -38.5px;
+      border: 3px solid grey;
+    }
     </style>
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
