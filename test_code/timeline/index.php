@@ -356,7 +356,7 @@
                   // }
                   if ($訂單日期 == "") {
                     echo '<h3 class="title ipr">CUST</h3>';
-                    echo' <p>目前正在进行中...</p>';
+                    echo' <p>目前正在進行中...</p>';
                   } 
                   else {
                     echo '<h3 class="title complete">CUST</h3>';
@@ -374,12 +374,12 @@
                 // If the order date and buy date are both empty...
                 if ($訂單日期 == "") {
                   echo '<h3 class="title">CSR</h3>';
-                  echo '<p>信息不可用。上一步正在进行中...</p>';
+                  echo '<p>信息不可用。上一步正在進行中...</p>';
                 }
                 // If only buy date is empty...
                 else if ($請購日期 == "") {
                   echo '<h3 class="title ipr">CSR</h3>';
-                  echo '<p>目前正在进行中...</p>';
+                  echo '<p>目前正在進行中...</p>';
                 }
                 else {
                   echo '<h3 class="title complete">CSR</h3>';
@@ -393,11 +393,11 @@
                 echo "<div class='info'>";
                   if ($請購日期 == "") {
                     echo '<h3 class="title">PR</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($採購日期 == "") {
                     echo '<h3 class="title ipr">PR</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">PR</h3>';
@@ -411,11 +411,11 @@
                 echo "<div class='info'>";
                   if ($請購日期 == "") {
                     echo '<h3 class="title">CSR</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($採購日期 == "") {
                     echo '<h3 class="title ipr">CSR</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">CSR</h3>';
@@ -428,11 +428,11 @@
                 echo "<div class='info'>";
                   if ($請購日期 == "") {
                     echo '<h3 class="title">CUST</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($採購日期 == "") {
                     echo '<h3 class="title ipr">CUST</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">CUST</h3>';
@@ -445,11 +445,11 @@
                 echo "<div class='info'>";
                   if ($採購日期 == "") {
                     echo '<h3 class="title">LOGISTIC/CSR</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($進貨驗收日期 == "") {
                     echo '<h3 class="title ipr">LOGISTIC/CSR</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">LOGISTIC/CSR</h3>';
@@ -469,11 +469,11 @@
                 echo "<div class='info'>";
                   if ($採購日期 == "") {
                     echo '<h3 class="title">PR</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($進貨驗收日期 == "") {
                     echo '<h3 class="title ipr">PR</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">PR</h3>';
@@ -493,11 +493,11 @@
                 echo "<div class='info'>";
                   if ($進貨驗收日期 == "") {
                     echo '<h3 class="title">LOGISTIC/CSR</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($出貨日期 == "") {
                     echo '<h3 class="title ipr">LOGISTIC/CSR</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">LOGISTIC/CSR</h3>';
@@ -517,11 +517,11 @@
                 echo "<div class='info'>";
                   if ($出貨日期 == "") {
                     echo '<h3 class="title">CUST</h3>';
-                    echo '<p>信息不可用。上一步正在进行中...</p>';
+                    echo '<p>信息不可用。上一步正在進行中...</p>';
                   }
                   else if ($發票號碼日期 == "") {
                     echo '<h3 class="title ipr">CUST</h3>';
-                    echo '<p>目前正在进行中...</p>';
+                    echo '<p>目前正在進行中...</p>';
                   }
                   else {
                     echo '<h3 class="title complete">CUST</h3>';
