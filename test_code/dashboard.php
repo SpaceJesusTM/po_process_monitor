@@ -206,7 +206,7 @@
 				return $lines;
 			}
 			//read the csv file into an array
-			$csvFile = 'data_formate.csv';
+			$csvFile = 'data_formate2.csv';
 			$csv = csvToArray($csvFile);
       
 		  ?>
@@ -241,7 +241,7 @@
             //append header back 
             array_unshift($csv, $header);
           }
-
+          
 				  for ( $i=0 ; $i<count($csv)-1 ; $i++ ) {
 					  echo "<tr>";
 						  echo "<td>";
@@ -261,12 +261,14 @@
                   echo $csv[$i+1][3] ;
                 }
 						  echo "</td>";
-              echo "<td>";            
-                echo "PN: ";                
+              echo "<td>";
+              $id = $csv[$i+1][16];
+                echo "ID: $id";              
 						  echo "</td>";
               // Chagned below button to link to timeline page, passing client name and order number as parameters
+              // Get the pn from id above.
               echo '<td>
-                <a href="timeline/index.php?client=' . $csv[$i+1][1] . '&order=' . $csv[$i+1][3] . '">
+                <a href="timeline/index.php?client=' . $csv[$i+1][1] . '&order=' . $csv[$i+1][3] . '&pn=' . $id . '">
                   <button type="button" class="btn btn-sm btn-outline-secondary"
                   >| 詳細 |</button>
                 </a>
@@ -278,20 +280,20 @@
     </main>
   </div>
 </div>   
-
+  <!-- Edit script so PN and buttons are not affected by sorting -->
   <script>
-	  function sortArray(sortType, sortOrder) {
-    $.ajax({
-      type: "POST",
-      url: "dashboard.php",
-      data: { sort_type: sortType, sort_order: sortOrder },
-      success: function(data) {
-        var $tableData = $(data);
-        $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
-      }
-    });
-    // To check button response
-    // console.log(sortType, sortOrder);
+      function sortArray(sortType, sortOrder) {
+      $.ajax({
+        type: "POST",
+        url: "dashboard.php",
+        data: { sort_type: sortType, sort_order: sortOrder },
+        success: function(data) {
+          var $tableData = $(data);
+          $("#myTable tbody").replaceWith($tableData.find("#myTable tbody"));
+        }
+      });
+      // To check button response
+      // console.log(sortType, sortOrder);
   }
   </script> 
   <!-- Script to search table, for now make it print to console to check funtioanilty -->
