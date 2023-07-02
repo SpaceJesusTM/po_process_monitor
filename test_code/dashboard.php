@@ -84,7 +84,9 @@
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Socle PO Process Dashboard</a>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+    <a href="signlogin/index.php">
+        <button type="button" class="moveBtn btnDesign btn-sm btn-outline-secondary">Sign in</button>
+      </a>
     </div>
   </div>
 </header>
